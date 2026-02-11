@@ -8,8 +8,20 @@
 foreach (var vehicle in vehicles)
 {
     vehicle.Move();
+    if (vehicle is IRefuelable refuelableVehicle)
+    {
+        refuelableVehicle.Refill();
+    }
+    else
+    {
+        Console.WriteLine("Цей транспорт не потрібно заправляти.");
+    }
 }
 
+public interface IRefuelable
+{
+    void Refill();
+}
 public abstract class Vehicle
 {
     protected string? Brand;
@@ -23,12 +35,16 @@ public abstract class Vehicle
     public abstract void Move();
 }
 
-public class Car : Vehicle
+public class Car : Vehicle, IRefuelable
 {
     public Car(string brand, int speed) : base(brand, speed) { }
     public override void Move()
     {
         Console.WriteLine($"Автомобіль марки {Brand} їде зі швидкістю {Speed} км/год");
+    }
+    public void Refill()
+    {
+        Console.WriteLine($"{Brand} заправляється бензином або дизелем.");
     }
 }
 
@@ -41,11 +57,15 @@ public class Bicycle : Vehicle
     }
 }
 
-public class Airplane : Vehicle
+public class Airplane : Vehicle, IRefuelable
 {
     public Airplane(string brand, int speed) : base(brand, speed) { }
     public override void Move()
     {
         Console.WriteLine($"Літак марки {Brand} летить зі швидкістю {Speed} км/год");
+    }
+    public void Refill()
+    {
+        Console.WriteLine($"{Brand} заправляється авіаційним гасом.");
     }
 }
