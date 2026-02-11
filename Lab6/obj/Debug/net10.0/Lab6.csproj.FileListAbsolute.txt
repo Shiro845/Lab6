@@ -12,3 +12,4 @@ C:\Users\shiro\RiderProjects\Lab6\Lab6\obj\Debug\net10.0\refint\Lab6.dll
 C:\Users\shiro\RiderProjects\Lab6\Lab6\obj\Debug\net10.0\Lab6.pdb
 C:\Users\shiro\RiderProjects\Lab6\Lab6\obj\Debug\net10.0\Lab6.genruntimeconfig.cache
 C:\Users\shiro\RiderProjects\Lab6\Lab6\obj\Debug\net10.0\ref\Lab6.dll
+C:\Users\shiro\RiderProjects\Lab6\Lab6\obj\Debug\net10.0\Lab6.sourcelink.json
