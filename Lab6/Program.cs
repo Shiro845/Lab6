@@ -13,13 +13,26 @@ public static class Program
         foreach (var window in windows)
         {
             window.Draw();
+            if (window is IResizable resizableWindow)
+            {
+                resizableWindow.Resize();
+            }
+            else
+            {
+                Console.WriteLine("Розмір вікна не може бути змінений користувачем");
+            }
         }
     }
 }
 
+public interface IResizable
+{
+    void Resize();
+}
+
 public abstract class UiWindow
 {
-    protected string Title;
+    protected string? Title;
     protected int Width;
     protected int Height;
 
@@ -32,7 +45,7 @@ public abstract class UiWindow
     public abstract void Draw();
 }
 
-public class MainWindow : UiWindow
+public class MainWindow : UiWindow, IResizable
 {
     public MainWindow(string title, int width, int height) : base(title, width, height) { }
 
@@ -40,15 +53,24 @@ public class MainWindow : UiWindow
     {
         Console.WriteLine($"MainWindow \"{Title}\" {Width}x{Height}, було відмальовано успішно");
     }
+
+    public void Resize()
+    {
+        Console.WriteLine("Розмір вікна може бути змінений користувачем");
+    }
 }
 
-public class ModalWindow : UiWindow
+public class ModalWindow : UiWindow, IResizable
 {
     public ModalWindow(string title, int width, int height) : base(title, width, height) { }
 
     public override void Draw()
     {
         Console.WriteLine($"ModalWindow \"{Title}\" {Width}x{Height}, було відмальовано успішно");
+    }
+    public void Resize()
+    {
+        Console.WriteLine("Розмір вікна може бути змінений користувачем");
     }
 }
 public class DialogWindow : UiWindow
