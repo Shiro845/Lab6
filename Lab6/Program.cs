@@ -1,71 +1,59 @@
-﻿List<Vehicle> vehicles = new List<Vehicle>
-    {
-        new Car("Mercedes", 90),
-        new Bicycle("Canyon", 15),
-        new Airplane("Boeing", 900)
-    };
-
-foreach (var vehicle in vehicles)
+﻿namespace Lab6;
+public static class Program
 {
-    vehicle.Move();
-    if (vehicle is IRefuelable refuelableVehicle)
+    public static void Main()
     {
-        refuelableVehicle.Refill();
-    }
-    else
-    {
-        Console.WriteLine("Цей транспорт не потрібно заправляти.");
+        List<UiWindow> windows = new List<UiWindow>
+        {
+            new MainWindow("Головне меню"),
+            new DialogWindow("Помилка підключення"),
+            new ModalWindow("Налаштування")
+        };
+
+        foreach (var window in windows)
+        {
+            window.Draw();
+        }
     }
 }
 
-public interface IRefuelable
-{
-    void Refill();
-}
-public abstract class Vehicle
-{
-    protected string? Brand;
-    protected int Speed;
 
-    public Vehicle(string brand,  int speed)
+public abstract class UiWindow
+{
+    protected string Title;
+
+    public UiWindow(string title)
     {
-        Brand = brand;
-        Speed = speed;
+        Title = title;
     }
-    public abstract void Move();
+    public abstract void Draw();
 }
 
-public class Car : Vehicle, IRefuelable
+public class MainWindow : UiWindow
 {
-    public Car(string brand, int speed) : base(brand, speed) { }
-    public override void Move()
+    public MainWindow(string title) : base(title) { }
+
+    public override void Draw()
     {
-        Console.WriteLine($"Автомобіль марки {Brand} їде зі швидкістю {Speed} км/год");
-    }
-    public void Refill()
-    {
-        Console.WriteLine($"{Brand} заправляється бензином або дизелем.");
+        Console.WriteLine($"MainWindow \"{Title}\" було відмальовано успішно");
     }
 }
 
-public class Bicycle : Vehicle
+public class ModalWindow : UiWindow
 {
-    public Bicycle(string brand, int speed) : base(brand, speed) { }
-    public override void Move()
+    public ModalWindow(string title) : base(title) { }
+
+    public override void Draw()
     {
-        Console.WriteLine($"Велосипед марки {Brand} їде зі швидкістю {Speed} км/год");
+        Console.WriteLine($"ModalWindow \"{Title}\" було відмальовано успішно");
     }
 }
-
-public class Airplane : Vehicle, IRefuelable
+public class DialogWindow : UiWindow
 {
-    public Airplane(string brand, int speed) : base(brand, speed) { }
-    public override void Move()
+    public DialogWindow(string title) : base(title) { }
+
+    public override void Draw()
     {
-        Console.WriteLine($"Літак марки {Brand} летить зі швидкістю {Speed} км/год");
-    }
-    public void Refill()
-    {
-        Console.WriteLine($"{Brand} заправляється авіаційним гасом.");
+        Console.WriteLine($"DialogWindow \"{Title}\" було відмальовано успішно");
     }
 }
